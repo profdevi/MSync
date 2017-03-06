@@ -25,6 +25,7 @@
 #include "MFileMover.h"
 #include "MFileOps.h"
 #include "MCommandArg.h"
+#include "MLicenseGPL.h"
 
 
 //******************************************************
@@ -49,6 +50,13 @@ int main(int argn,const char *argv[])
 	if(args.CheckRemoveHelp()==true)
 		{
 		GDisplayHelp();
+		return 0;
+		}
+
+	if(args.CheckRemoveArg("-gpl")==true)
+		{
+		MLicenseGPL gpl(true);
+		gpl.Print();
 		return 0;
 		}
 
@@ -119,8 +127,10 @@ int main(int argn,const char *argv[])
 static void GDisplayHelp(void)
 	{
 	MStdPrintf(	"\n"
-				"   usage:  %s [-?][-w|-r|-l] <targetdir>\n"
+				"   usage:  %s [-?][-w|-r|-l|-gpl] <targetdir>\n"
 				"           v%s copyright Comine.com\n"
+				"           The software is release under the Gnu Public License 3.0\n"
+				"           Passing the -gpl command line argument will display the license\n"
 				"\n"
 				"   Application will read the contents of all config files in current\n"
 				"   directory with extension .msync.  Based on the contents of the .msync\n"
