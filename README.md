@@ -26,7 +26,7 @@ target directory.  The Alpha.msync file consists of the filename=target director
 values.  Comments are started with a pound(#).
 
 ```
-# This is the contents of #Alpha.msync
+# This is the contents of the file Alpha.msync
 #  Blank lines are skipped
 Alpha.html = /           # this will place Alpha.html in the root folder
 Alpha.png  = images      # this will place Alpha.png to images folder
@@ -37,9 +37,9 @@ Alpha.css  = css         # this will place Alpha.css to css folder
 In the folder where you have the four files and the .msync file, you can 
 run the next command.  
 
-'''
+```
 C:\work> MSync -w SomeDir 
-'''
+```
 
 This will create the folder SomeDir and place the files in the correct 
 subfolders of images, js, css.
@@ -54,7 +54,7 @@ C:\work> MSync -r SomeDir
 Running the next command lists out all the .msync files in the current folder.
 
 ```
-C:/work> MSync -l
+C:\work> MSync -l
 ```
 
 The next command shows if any of the files of hierarchy have changed.
