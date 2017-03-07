@@ -18,7 +18,7 @@
 
 */
 
-//v1.0 copyright Comine.com 20170304S1649
+//v1.1 copyright Comine.com 20170307T1116
 #include "MStdLib.h"
 #include "MStringList.h"
 #include "MWUDirReader.h"
@@ -32,7 +32,12 @@
 //* Module Elements
 //******************************************************
 static const char *GApplicationName="MSync";	// Used in Help
-static const char *GApplicationVersion="1.0";	// Used in Help
+static const char *GApplicationVersion="1.1";	// Used in Help
+
+////////////////////////////////////////////////////
+static const char GFormatStrCheck[]="%-8s : %-20s => %s\n";
+static const char GFormatStrWrite[]="%-8s : %-20s => %s\n";
+static const char GFormatStrRead[]="%-8s : %-50s => %s\n";
 
 ////////////////////////////////////////////////////
 static void GDisplayHelp(void);
@@ -222,28 +227,24 @@ static bool GShowStatus(MStringList &syncfiles,const char *targetfolder)
 			const char *srcfile=filemover.GetFile(i);
 			const char *targetfile=filemover.GetTarget(i);
 
-			MStdPrintf("%-10s => %-50s : ",srcfile,targetfile);
 			if(fileops.Exists(srcfile)==false)
 				{
-				MStdPrintf("**Source file missing.");
+				MStdPrintf(GFormatStrCheck,"Src Missing",srcfile,targetfile);
 				}
 			else if(fileops.Exists(targetfile)==false)
 				{
-				MStdPrintf("**Target file missing.");
+				MStdPrintf(GFormatStrCheck,"Target Missing",srcfile,targetfile);
 				}
 			else if(fileops.AreSame(srcfile,targetfile)==false)
 				{
-				MStdPrintf("**Different.");
+				MStdPrintf(GFormatStrCheck,"Different",srcfile,targetfile);
 				}
 			else
 				{
-				MStdPrintf(" same ");
+				MStdPrintf(GFormatStrCheck,"Same",srcfile,targetfile);
 				}
-			
-			MStdPrintf("\n");
 			}
 		}
-	
 	
 	return true;
 	}
@@ -273,21 +274,20 @@ static bool GReadFiles(MStringList &syncfiles,const char *targetfolder)
 			const char *srcfile=filemover.GetFile(i);
 			const char *targetfile=filemover.GetTarget(i);
 
-			MStdPrintf("%-50s => %-10s : ",targetfile,srcfile);
 			if(fileops.Exists(targetfile)==false)
 				{
-				MStdPrintf("**Target file missing.\n");
+				MStdPrintf(GFormatStrRead,"Target Missing",targetfile,srcfile);
 				continue;
 				}
 			
 			if(fileops.Copy(targetfile,srcfile)==true)
 				{
-				MStdPrintf("copied\n");
+				MStdPrintf(GFormatStrRead,"Copied",targetfile,srcfile);
 				continue;
 				}
 			else
 				{
-				MStdPrintf("**FAILED\n");
+				MStdPrintf(GFormatStrRead,"**Failed**",targetfile,srcfile);
 				continue;
 				}
 			}
@@ -321,21 +321,20 @@ static bool GWriteFiles(MStringList &syncfiles,const char *targetfolder)
 			const char *srcfile=filemover.GetFile(i);
 			const char *targetfile=filemover.GetTarget(i);
 
-			MStdPrintf("%-10s => %-50s : ",srcfile,targetfile);
 			if(fileops.Exists(srcfile)==false)
 				{
-				MStdPrintf("**Source file missing.\n");
+				MStdPrintf(GFormatStrWrite,"Source Missing",srcfile,targetfile);
 				continue;
 				}
 			
 			if(fileops.Copy(srcfile,targetfile)==true)
 				{
-				MStdPrintf("copied\n");
+				MStdPrintf(GFormatStrWrite,"Copied",srcfile,targetfile);
 				continue;
 				}
 			else
 				{
-				MStdPrintf("**FAILED\n");
+				MStdPrintf(GFormatStrWrite,"**Failed**",srcfile,targetfile);
 				continue;
 				}
 			}
