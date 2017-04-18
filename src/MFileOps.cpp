@@ -18,7 +18,7 @@
 
 */
 
-//v1.48 copyright Comine.com 20161018T1111
+//v1.49 copyright Comine.com 20170406R1314
 #include "MStdLib.h"
 
 //////////////////////////////////////////////
@@ -2078,7 +2078,7 @@ bool MFileOps::SetSize(const char *filename,int newsize)
 	for(i=0;i<newsize;++i)
 		{
 		char buf;
-		if(fin.Read(&buf,1)==false)
+		if(fin.Read((void *)&buf,1)==false)
 			{
 			fout.Destroy();
 			Delete(tmpfile.Get());

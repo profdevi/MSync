@@ -18,7 +18,7 @@
 
 */
 
-//v2.13 copyright Comine.com 20170124T1209
+//v2.14 copyright Comine.com 20170309R0657
 /*
 Bug Notice:
 	MStdSPrintf(const wchar_t *)  seems to be failing.
@@ -40,6 +40,7 @@ Bug Notice:
 	#include <windows.h>
 	#include <conio.h>
 	#include <float.h>
+	#include <intrin.h>
 
 	// Link in Libraries if on windows
 	#if ( defined(MSTDLIB_OS_WINDOWS) )
@@ -178,7 +179,8 @@ void MStdBreak(void)
 	{
 	// Check if Visual Stdio Debugger
     #if defined(_MSC_VER)
-		__asm int 3
+		// __asm int 3	(Works on the older vc<14.0 (vs 2015) )
+		__debugbreak();
 	#elif defined(__GNUC__)
 		asm(".byte 0xcd,0x03\n\t");
 	#else

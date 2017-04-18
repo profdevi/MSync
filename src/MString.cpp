@@ -18,7 +18,7 @@
 
 */
 
-//v3.1 copyright Comine.com 20170304S2237
+//v3.2 copyright Comine.com 20170409U0957
 #include "MStdLib.h"
 #include "TVector.h"
 #include "MIReader.h"
@@ -577,6 +577,20 @@ bool MString::Write(MIWriter &writer) const
 
 	return true;
 	}
+
+/////////////////////////////////////////////////////////////
+bool MString::Zero(void)
+	{
+	const int count=mString.GetCount();
+	for(int i=0;i<count;++i)
+		{
+		mString[i]=0;
+		}
+
+	mLength=0;
+	return true;
+	}
+
 
 //************************************************************************
 //  MString Static Methods
